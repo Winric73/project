@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://brui5c283s45y"]
+[gd_scene load_steps=8 format=3 uid="uid://bmi0y28fu1qc8"]
 
 [ext_resource type="Texture2D" uid="uid://bsifvvceva6pl" path="res://sprites/poop.png" id="1_634gh"]
-[ext_resource type="Script" uid="uid://bnq7f52oe1ndd" path="res://scripts/poop.gd" id="1_pkbnx"]
+[ext_resource type="Script" uid="uid://csvpxche4onhp" path="res://scripts/poop.gd" id="1_pkbnx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pkbnx"]
 atlas = ExtResource("1_634gh")
-region = Rect2(0, 0, 48, 48)
+region = Rect2(0, 0, 48, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l3xhj"]
 atlas = ExtResource("1_634gh")
-region = Rect2(48, 0, 48, 48)
+region = Rect2(48, 0, 48, 40)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aj47t"]
 animations = [{
@@ -21,22 +21,33 @@ animations = [{
 "texture": SubResource("AtlasTexture_l3xhj")
 }],
 "loop": true,
-"name": &"new_animation",
-"speed": 2.0
+"name": &"poop",
+"speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gcr37"]
-radius = 9.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcr37"]
+size = Vector2(8, 7)
 
-[node name="poop" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jv0s5"]
+radius = 12.0
+
+[node name="poop" type="CharacterBody2D"]
 script = ExtResource("1_pkbnx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_aj47t")
-animation = &"new_animation"
-frame_progress = 0.14260566
+animation = &"poop"
+frame_progress = 0.45635426
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_gcr37")
+
+[node name="chat_detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chat_detection_area"]
 position = Vector2(0, -6)
-shape = SubResource("CircleShape2D_gcr37")
+shape = SubResource("CircleShape2D_jv0s5")
+
+[node name="Timer" type="Timer" parent="."]
